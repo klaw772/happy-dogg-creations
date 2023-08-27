@@ -1,0 +1,12 @@
+.introContainer {
+  display: flex;
+  margin-top: 3em;
+  justify-content: center;
+}
+.introContainer > img {
+  box-shadow: -15px -15px #AFF4E5;
+}
+.introContent {
+  margin-left: 4em;
+  max-width: 25%;
+}
