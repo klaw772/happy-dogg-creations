@@ -1,18 +1,27 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import type { Metadata } from 'next'
+import localFont from 'next/font/local'
+import { Header } from './header';
 
-export const metadata = {
-  metadataBase: new URL('https://postgres-starter.vercel.app'),
-  title: 'Vercel Postgres Demo',
-  description:
-    'A simple Next.js app with Vercel Postgres as the database',
+const engebrechtre = localFont({
+  src: [
+    {
+      path: "../public/engebrechtre/engebrechtre-bd.otf",
+      weight: "600",
+      style: "bold",
+    },
+    {
+      path: "../public/engebrechtre/engebrechtre-rg.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+});
+
+export const metadata: Metadata = {
+  title: 'Happy Dogg Creations',
+  description: 'Happy Dogg Creations e-commerce platform',
 }
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 export default function RootLayout({
   children,
@@ -21,7 +30,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>{children}</body>
+      <body className={engebrechtre.className}>
+        <main className="main">
+          <Header />
+          {children}
+        </main>
+      </body>
     </html>
-  )
+  );
 }
