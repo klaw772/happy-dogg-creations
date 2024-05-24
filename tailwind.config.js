@@ -7,9 +7,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        default: ['var(--font-inter)'],
-      },
     },
   },
   plugins: [],

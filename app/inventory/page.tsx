@@ -1,5 +1,6 @@
 import { seedItems } from "@/db/seed";
 import { db } from "@/db/kysely";
+import Modal from "./modal";
 
 export interface Item {
   id: number;
@@ -7,8 +8,9 @@ export interface Item {
   description: string;
   createdAt: Date;
 }
+
 export default async function Inventory() {
-    let items;
+    let items: Item[];
     try {
       items = await db.selectFrom("items").selectAll().execute();
     } catch (e: any) {
@@ -22,7 +24,7 @@ export default async function Inventory() {
   return (
     <div>
       {items.map((item: Item) => (
-        <div key={item.id}>{item.name}</div>
+        <Modal key={item.id} item={item}/>
       ))}
     </div>
   );

@@ -20,10 +20,10 @@ export default async function Home() {
   return (
       <div className={styles.introContainer}>
         <Image
-          src="/manda-pic.png"
-          alt="Pic of Manda"
-          width={300}
-          height={300}
+          src="https://images.unsplash.com/photo-1417325384643-aac51acc9e5d"
+          alt="Ecommerce Greeting Page"
+          width={150}
+          height={150}
           priority
         />
         <div className={styles.introContent}>

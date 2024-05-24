@@ -6,10 +6,10 @@
   width: 70%;
   font-size: 1.5em;
   justify-content: space-between;
+  align-items: center;
 }
 
 .navItems {
   width: 30%;
   justify-content: space-between;
-  padding-top: 3rem;
 }
