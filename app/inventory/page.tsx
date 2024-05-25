@@ -1,6 +1,6 @@
 import { seedItems } from "@/db/seed";
 import { db } from "@/db/kysely";
-import Modal from "./modal";
+import { ItemModal } from "./ItemModal";
 
 export interface Item {
   id: number;
@@ -21,10 +21,11 @@ export default async function Inventory() {
         throw e;
       }
     }
+
   return (
     <div>
       {items.map((item: Item) => (
-        <Modal key={item.id} item={item}/>
+        <ItemModal key={item.id} item={item} />
       ))}
     </div>
   );

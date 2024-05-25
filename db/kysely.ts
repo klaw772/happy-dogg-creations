@@ -1,15 +1,6 @@
 import { Generated, ColumnType } from "kysely";
 import { createKysely } from "@vercel/postgres-kysely";
 
-interface UserTable {
-  id: Generated<number>;
-  name: string;
-  email: string;
-  password: string;
-  role: 'admin' | 'user';
-  createdAt: ColumnType<Date, string | undefined, never>;
-}
-
 interface ItemsTable {
   id: Generated<number>;
   name: string;
@@ -17,19 +8,23 @@ interface ItemsTable {
   createdAt: ColumnType<Date, string | undefined, never>;
 }
 
-
-interface OrdersTable {
+interface OrderItemsTable {
   id: Generated<number>;
-  user_id: number;
+  order_uuid: string;
   item_id: number;
   quantity: number;
+}
+
+interface OrdersTable {
+  uuid: string;
+  fulfilled: boolean;
   createdAt: ColumnType<Date, string | undefined, never>;
 }
 
 
 export interface Database {
-  users: UserTable;
   items: ItemsTable;
+  orderItems: OrderItemsTable;
   orders: OrdersTable;
 }
 

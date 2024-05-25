@@ -7,6 +7,9 @@ const nextConfig = {
       "source.unsplash.com",
     ],
   },
+  experimental: {
+    serverActions: true,
+  },
 };
 
 module.exports = nextConfig;

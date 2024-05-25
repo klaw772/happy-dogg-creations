@@ -33,7 +33,8 @@ a {
 }
 
 .main {
-  padding: 4rem;
+  padding: 1rem;
+  margin: 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
