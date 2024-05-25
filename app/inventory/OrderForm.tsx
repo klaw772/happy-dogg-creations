@@ -1,15 +1,18 @@
 import { Button, TextInput, Label } from "flowbite-react";
 import { addToCart } from "./OrderFormHandleSubmit";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export interface OrderFormProps {
   itemId: any;
+  orderUuid: string;
+  setOrderUuid: Dispatch<SetStateAction<string>>;
 }
 
 export default function OrderForm(props: OrderFormProps) {
   const [quantity, setQuantity] = useState(0);
 
-  const addToCartWithId = addToCart.bind(null, props.itemId);
+  
+  const addToCartWithId = addToCart.bind(null, props.itemId, props.orderUuid);
   return (
     <form action={addToCartWithId}>
       <div className="mb-2 block">

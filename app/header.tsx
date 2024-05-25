@@ -1,6 +1,7 @@
 'use client'
 import { Navbar } from "flowbite-react";
 import Image from "next/image";
+import Link from "next/link";
 
 
 export function Header() {
@@ -20,11 +21,10 @@ export function Header() {
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
-        <Navbar.Link href="/inventory">Inventory</Navbar.Link>
-        <Navbar.Link href="#">Contact</Navbar.Link>
-        <Navbar.Link href="#">
-          Cart
-        </Navbar.Link>
+        <Link href="/inventory">Inventory
+        </Link>
+        <Link href="/cart">Cart
+        </Link>
       </Navbar.Collapse>
     </Navbar>
   );

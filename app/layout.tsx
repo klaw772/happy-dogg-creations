@@ -2,6 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Header } from './header';
 import { Inter } from "next/font/google";
+import { Providers } from './providers';
 
 
 export const metadata: Metadata = {
@@ -19,8 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main className={`main ${inter.className}`}>{children}</main>
+        <Providers>
+          <>
+            <Header />
+            <main className={`main ${inter.className}`}>{children}</main>
+          </>
+        </Providers>
       </body>
     </html>
   );

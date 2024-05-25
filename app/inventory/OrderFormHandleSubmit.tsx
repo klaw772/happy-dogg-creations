@@ -2,7 +2,8 @@
 import { db, sql } from "@/db/kysely";
 import { v4 as uuidv4 } from "uuid";
 
-export const addToCart = async (itemId: number, formData: FormData) => {
+
+export const addToCart = async (itemId: number, orderUuid: string, formData: FormData) => {
   "use server";
   try {
     await db.schema
@@ -28,22 +29,31 @@ export const addToCart = async (itemId: number, formData: FormData) => {
       .addColumn("quantity", "integer", (column) => column.notNull())
       .execute();
 
-    let orderNo = uuidv4();
     let quantity: any = formData.get('itemQuantity');
     if (!quantity) {
       throw new Error('Quantity invalid');
     }
 
-    await db.insertInto("orders")
-    .values({
-      uuid: orderNo,
-      fulfilled: false
-    }).executeTakeFirstOrThrow();
+    const orderPresenceResult = await db
+    .selectFrom('orders')
+    .selectAll()
+    .where('uuid', '=', orderUuid)
+    .executeTakeFirst()
+
+    if (!orderPresenceResult?.uuid) {
+      await db
+        .insertInto("orders")
+        .values({
+          uuid: orderUuid,
+          fulfilled: false,
+        })
+        .executeTakeFirstOrThrow();
+    }
 
     await db
       .insertInto("orderItems")
       .values({
-        order_uuid: orderNo,
+        order_uuid: orderUuid,
         item_id: itemId,
         quantity,
       })
