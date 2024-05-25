@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Header } from './header';
 import { Inter } from "next/font/google";
 import { Providers } from './providers';
+import HeaderWrapper from './headerWrapper';
 
 
 export const metadata: Metadata = {
@@ -22,7 +23,9 @@ export default function RootLayout({
       <body>
         <Providers>
           <>
-            <Header />
+            <HeaderWrapper>
+              <Header />
+            </HeaderWrapper>
             <main className={`main ${inter.className}`}>{children}</main>
           </>
         </Providers>

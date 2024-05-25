@@ -1,6 +1,12 @@
 import { Generated, ColumnType } from "kysely";
 import { createKysely } from "@vercel/postgres-kysely";
 
+
+interface UsersTable {
+  id: Generated<number>;
+  email: string;
+  password: string;
+}
 interface ItemsTable {
   id: Generated<number>;
   name: string;
@@ -18,13 +24,14 @@ interface OrderItemsTable {
 interface OrdersTable {
   uuid: string;
   fulfilled: boolean;
+  user_id: number;
   createdAt: ColumnType<Date, string | undefined, never>;
 }
 
-
 export interface Database {
+  users: UsersTable;
   items: ItemsTable;
-  orderItems: OrderItemsTable;
+  order_items: OrderItemsTable;
   orders: OrdersTable;
 }
 
