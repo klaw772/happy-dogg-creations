@@ -13,6 +13,7 @@ export default async function LoginPage() {
   return (
     <section className='flex items-center justify-center'>
       <div className='w-[400px]'>
+        <p className='mb-3 text-center text-3xl'>Log In</p>
         <LoginFormPage />
         <p className='mt-5 text-sm font-medium'>
           Need an account?{' '}

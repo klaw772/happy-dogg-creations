@@ -13,6 +13,7 @@ export default async function RegisterPage() {
   return (
     <section className='flex items-center justify-center'>
       <div className='w-[400px]'>
+        <p className="text-3xl text-center mb-3">Register</p>
         <RegisterFormPage />
         <p className='mt-5 text-sm font-medium'>
           Already have an account?{' '}

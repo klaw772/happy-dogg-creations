@@ -7,7 +7,7 @@ export const handleRegister = async (data: FormData) => {
   const password = data.get('password');
 
   try {
-    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/register`, {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -17,8 +17,10 @@ export const handleRegister = async (data: FormData) => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    redirect('/login');
   } catch (error: any) {
     console.error('Registration Failed:', error);
+  } finally {
+    redirect('/login');
+
   }
 };
