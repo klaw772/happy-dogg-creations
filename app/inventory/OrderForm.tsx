@@ -1,5 +1,5 @@
 import { Button, TextInput, Label } from 'flowbite-react';
-import { addToCart } from './OrderFormHandleSubmit';
+import { addOrAdjustCart } from './OrderFormHandleSubmit';
 
 import { Dispatch, SetStateAction, createRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -19,10 +19,10 @@ export default function OrderForm(props: OrderFormProps) {
 
   const handleSubmitClient = async (formData: FormData) => {
     setSubmitDisabled(true);
-    const response = await addToCart(props.itemId, formData);
+    const response = await addOrAdjustCart(props.itemId, 'ADD', formData);
     if (response) {
-    props.setOpenModal(false);
-    router.push('/cart')
+      props.setOpenModal(false);
+      router.push('/cart')
     } else {
       throw new Error('Error submitting data');
     }

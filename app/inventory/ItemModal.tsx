@@ -19,7 +19,7 @@ export function ItemModal(props: ItemModalProps) {
         imgAlt={props.item.name}
         imgSrc={props.item.img_url}
       >
-        <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
+        <h5 className='text-2xl font-bold tracking-tight text-gray-900'>
           {props.item.name}
         </h5>
         <Button

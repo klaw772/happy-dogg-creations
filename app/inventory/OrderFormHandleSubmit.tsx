@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import retrieveUser from '../lib/retrieveUser';
 import retrieveLatestUnfulfilledOrder from '../lib/retrieveLatestUnfulfilledOrder';
 
-export const addToCart = async (itemId: number, formData: FormData) => {
+export const addOrAdjustCart = async (itemId: number, operation: string, formData: FormData) => {
   'use server';
   const user = await retrieveUser();
 
@@ -43,13 +43,24 @@ export const addToCart = async (itemId: number, formData: FormData) => {
         .where('id', '=', orderItemPresence.id)
         .executeTakeFirst();
 
-      await db
-        .updateTable('order_items')
-        .set({ quantity: Number(prevQuantity?.quantity) + Number(quantity) })
-        .where('id', '=', orderItemPresence.id)
-        .returning('order_uuid')
-        .executeTakeFirstOrThrow();
-
+        let res;
+        if (operation === 'ADD') {
+          res = await db
+            .updateTable('order_items')
+            .set({ quantity: Number(prevQuantity?.quantity) + Number(quantity) })
+            .where('id', '=', orderItemPresence.id)
+            .returning('order_uuid')
+            .executeTakeFirstOrThrow();
+        } else if (operation === 'EDIT') {
+           res = await db
+             .updateTable('order_items')
+             .set({
+               quantity: Number(quantity),
+             })
+             .where('id', '=', orderItemPresence.id)
+             .returning('order_uuid')
+             .executeTakeFirstOrThrow();
+            }
     }
 
     return true;

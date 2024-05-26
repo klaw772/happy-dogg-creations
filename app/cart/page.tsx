@@ -1,13 +1,13 @@
-import { db } from '@/db/kysely';
 import { redirect } from 'next/navigation';
 import CartContents from './CartContents';
 import retrieveUser from '../lib/retrieveUser';
 import retrieveLatestUnfulfilledOrder from '../lib/retrieveLatestUnfulfilledOrder';
+import { updateCart } from '../lib/updateCart';
 
 export type CartItem = {
+  id: number;
   quantity: number;
   name: string;
-  img_url: string;
 };
 export default async function Cart() {
   const user = await retrieveUser();
@@ -15,17 +15,10 @@ export default async function Cart() {
   if (!user) {
     redirect('/login');
   }
-  let items;
+  let items: CartItem[];
   let latestUnfulfilledOrder = await retrieveLatestUnfulfilledOrder(user.id);
 
-  items = await db
-    .selectFrom('order_items')
-    .innerJoin('orders', 'order_items.order_uuid', 'orders.uuid')
-    .innerJoin('items', 'order_items.item_id', 'items.id')
-    .select(['order_items.quantity', 'items.name', 'items.img_url'])
-    .where('order_uuid', '=', latestUnfulfilledOrder.uuid)
-    .execute();
-
+  items = await updateCart(latestUnfulfilledOrder.uuid);
   return (
     <>
       {items.length > 0 ? (
