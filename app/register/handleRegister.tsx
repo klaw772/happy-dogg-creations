@@ -7,7 +7,7 @@ export const handleRegister = async (data: FormData) => {
   const password = data.get('password');
 
   try {
-    const response = await fetch(`http://${process.env.NEXTAUTH_URL}/api/auth/register`, {
+    const response = await fetch(`${process.env.NEXTAUTH_URL}/api/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
