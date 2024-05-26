@@ -1,21 +1,21 @@
-import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { compare } from "bcrypt";
-import { db } from "@/db/kysely";
+import NextAuth from 'next-auth/next';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { compare } from 'bcrypt';
+import { db } from '@/db/kysely';
 
 const handler = NextAuth({
   session: {
-    strategy: "jwt",
+    strategy: 'jwt',
   },
   jwt: {
     maxAge: 60 * 60 * 24 * 7,
   },
   pages: {
-    signIn: "/login",
+    signIn: '/login',
   },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: 'Credentials',
       credentials: {
         email: {},
         password: {},
@@ -25,14 +25,14 @@ const handler = NextAuth({
           throw new Error();
         }
         const response = await db
-          .selectFrom("users")
+          .selectFrom('users')
           .selectAll()
-          .where("email", "=", credentials.email)
+          .where('email', '=', credentials.email)
           .executeTakeFirstOrThrow();
 
         const user = response;
         const passwordCorrect = await compare(
-          credentials.password || "",
+          credentials.password || '',
           user.password
         );
 

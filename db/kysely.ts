@@ -1,6 +1,5 @@
-import { Generated, ColumnType } from "kysely";
-import { createKysely } from "@vercel/postgres-kysely";
-
+import { Generated, ColumnType } from 'kysely';
+import { createKysely } from '@vercel/postgres-kysely';
 
 interface UsersTable {
   id: Generated<number>;
@@ -37,4 +36,4 @@ export interface Database {
 }
 
 export const db = createKysely<Database>();
-export { sql } from "kysely";
+export { sql } from 'kysely';

@@ -1,45 +1,65 @@
-import { Button, TextInput, Label } from "flowbite-react";
-import { addToCart } from "./OrderFormHandleSubmit";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Button, TextInput, Label } from 'flowbite-react';
+import { addToCart } from './OrderFormHandleSubmit';
+import { Dispatch, SetStateAction, createRef, useState } from 'react';
 
 export interface OrderFormProps {
   itemId: any;
+  setOpenModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function OrderForm(props: OrderFormProps) {
   const [quantity, setQuantity] = useState(0);
+  const [submitDisabled, setSubmitDisabled] = useState(false);
 
-  
-  const addToCartWithId = addToCart.bind(null, props.itemId);
+  const ref = createRef<HTMLFormElement>();
+
+  const handleSubmitClient = async (formData: FormData) => {
+    setSubmitDisabled(true);
+    const response = await addToCart(props.itemId, formData);
+    if (response) {
+      props.setOpenModal(false);
+    } else {
+      throw new Error('Error submitting data');
+    }
+  };
+
   return (
-    <form action={addToCartWithId}>
-      <div className="mb-2 block">
-        <Label htmlFor="itemQuantity" value="Item Quantity" />
+    <form ref={ref} action={handleSubmitClient} className='text-center'>
+      <div className='mb-2 block'>
+        <Label htmlFor='itemQuantity' value='Item Quantity' />
       </div>
-      <div>
+      <div className='flex flex-wrap gap-2'>
         <Button
           disabled={quantity <= 0}
+          color='red'
           onClick={() => setQuantity(quantity - 1)}
         >
           -
         </Button>
         <TextInput
-          className="flex max-w-sm flex-col gap-4"
-          id="itemQuantity"
-          name="itemQuantity"
+          className='flex max-w-sm flex-col gap-4'
+          id='itemQuantity'
+          name='itemQuantity'
           value={quantity}
-          type="number"
+          type='number'
           required
-          sizing="sm"
           onChange={(e) => {
             setQuantity(e.target.valueAsNumber);
           }}
-          min={0}
+          min={1}
         />
-        <Button onClick={() => setQuantity(quantity + 1)}>+</Button>
+        <Button color='green' onClick={() => setQuantity(quantity + 1)}>
+          +
+        </Button>
       </div>
 
-      <Button type="submit">Submit Order</Button>
+      <Button
+        type='submit'
+        className='mt-5 w-full bg-red-900 hover:border-red-900 hover:text-red-900 enabled:hover:bg-white'
+        disabled={submitDisabled}
+      >
+        Add to Cart
+      </Button>
     </form>
   );
 }

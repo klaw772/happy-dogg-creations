@@ -10,7 +10,6 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -24,7 +23,7 @@ body {
 }
 body {
   color: rgb(var(--foreground-rgb));
-  background: #ECD7C9;
+  background: #ecd7c9;
 }
 
 a {

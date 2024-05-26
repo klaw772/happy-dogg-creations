@@ -1,20 +1,20 @@
-import { db } from "@/db/kysely";
+import { db } from '@/db/kysely';
 
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export default async function retrieveUser() {
-  "use server";
+  'use server';
   const session = await getServerSession();
   if (!session || !session.user || !session.user.email) {
-    redirect("/login");
+    redirect('/login');
   }
 
   const user = await db
-    .selectFrom("users")
+    .selectFrom('users')
     .selectAll()
-    .where("email", "=", session.user.email)
+    .where('email', '=', session.user.email)
     .executeTakeFirst();
-  
-   return user;
+
+  return user;
 }

@@ -2,9 +2,9 @@
 const nextConfig = {
   images: {
     domains: [
-      "images.ctfassets.net",
-      "images.unsplash.com",
-      "source.unsplash.com",
+      'images.ctfassets.net',
+      'images.unsplash.com',
+      'source.unsplash.com',
     ],
   },
   experimental: {
