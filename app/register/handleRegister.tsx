@@ -1,4 +1,7 @@
 'use server';
+
+import { redirect } from "next/navigation";
+
 export const handleRegister = async (data: FormData) => {
   const email = data.get('email');
   const password = data.get('password');
@@ -14,8 +17,7 @@ export const handleRegister = async (data: FormData) => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    // Process response here
-    console.log('Registration Successful', response);
+    redirect('/login');
   } catch (error: any) {
     console.error('Registration Failed:', error);
   }
