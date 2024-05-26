@@ -1,6 +1,8 @@
 import { Button, TextInput, Label } from 'flowbite-react';
 import { addToCart } from './OrderFormHandleSubmit';
+
 import { Dispatch, SetStateAction, createRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export interface OrderFormProps {
   itemId: any;
@@ -10,6 +12,8 @@ export interface OrderFormProps {
 export default function OrderForm(props: OrderFormProps) {
   const [quantity, setQuantity] = useState(0);
   const [submitDisabled, setSubmitDisabled] = useState(false);
+    const router = useRouter();
+
 
   const ref = createRef<HTMLFormElement>();
 
@@ -17,7 +21,8 @@ export default function OrderForm(props: OrderFormProps) {
     setSubmitDisabled(true);
     const response = await addToCart(props.itemId, formData);
     if (response) {
-      props.setOpenModal(false);
+    props.setOpenModal(false);
+    router.push('/cart')
     } else {
       throw new Error('Error submitting data');
     }

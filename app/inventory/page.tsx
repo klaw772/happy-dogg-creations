@@ -18,7 +18,7 @@ export default async function Inventory() {
   }
 
   return (
-    <div className='grid grid-cols-2 gap-4 md:grid-cols-3'>
+    <div className='grid grid-cols-1 gap-4 md:grid-cols-3'>
       {items.map((item: Item) => (
         <ItemModal key={item.id} item={item} />
       ))}

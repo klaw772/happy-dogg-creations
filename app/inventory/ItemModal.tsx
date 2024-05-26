@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Card, Modal } from 'flowbite-react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Item } from './page';
 import OrderForm from './OrderForm';
 import Image from 'next/image';
@@ -36,9 +36,10 @@ export function ItemModal(props: ItemModalProps) {
           <div className='mb-1'>
             <Image
               src={props.item.img_url}
-              alt='Ecommerce Greeting Page'
-              width={300}
-              height={300}
+              alt={props.item.name}
+              width={350}
+              height={350}
+              className="rounded-md"
             />
           </div>
 
