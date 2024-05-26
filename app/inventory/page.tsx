@@ -1,4 +1,3 @@
-import { seedItems } from "@/db/seed";
 import { db } from "@/db/kysely";
 import { ItemModal } from "./ItemModal";
 
@@ -6,7 +5,8 @@ export interface Item {
   id: number;
   name: string;
   description: string;
-  createdAt: Date;
+  img_url: string;
+  created_at: Date;
 }
 
 export default async function Inventory() {
@@ -14,16 +14,12 @@ export default async function Inventory() {
     try {
       items = await db.selectFrom("items").selectAll().execute();
     } catch (e: any) {
-      if (e.message === `relation "items" does not exist`) {
-        await seedItems();
-        items = await db.selectFrom("items").selectAll().execute();
-      } else {
-        throw e;
-      }
+      throw e;
     }
+    
 
   return (
-    <div>
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
       {items.map((item: Item) => (
         <ItemModal key={item.id} item={item} />
       ))}

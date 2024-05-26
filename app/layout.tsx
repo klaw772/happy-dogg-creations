@@ -2,7 +2,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Header } from './header';
 import { Inter } from "next/font/google";
-import { Providers } from './providers';
 import HeaderWrapper from './headerWrapper';
 
 
@@ -21,14 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
-          <>
-            <HeaderWrapper>
-              <Header />
-            </HeaderWrapper>
-            <main className={`main ${inter.className}`}>{children}</main>
-          </>
-        </Providers>
+        <>
+          <HeaderWrapper>
+            <Header />
+          </HeaderWrapper>
+          <main className={`main ${inter.className}`}>{children}</main>
+        </>
       </body>
     </html>
   );

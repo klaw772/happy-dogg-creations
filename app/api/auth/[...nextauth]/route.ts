@@ -20,7 +20,7 @@ const handler = NextAuth({
         email: {},
         password: {},
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         if (!credentials) {
           throw new Error();
         }

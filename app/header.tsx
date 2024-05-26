@@ -1,5 +1,5 @@
 'use client'
-import { Navbar } from "flowbite-react";
+import { Button, Navbar } from "flowbite-react";
 import { SessionProvider, signOut, useSession } from "next-auth/react"
 
 import Image from "next/image";
@@ -25,12 +25,12 @@ export function Header() {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Link href="/inventory">Inventory</Link>
-          <Link href="/cart">Cart</Link>
+          <Navbar.Link as={Link} href="/inventory">Inventory</Navbar.Link>
+          <Navbar.Link as={Link} href="/cart">Cart</Navbar.Link>
           {status === "authenticated" ? (
-            <button onClick={() => signOut({callbackUrl: "/"})}>Sign Out</button>
+            <Navbar.Link className="hover:cursor-pointer" onClick={() => signOut({callbackUrl: "/"})}>Sign Out</Navbar.Link>
           ) : (
-            <Link href="/register">Sign Up/Sign In</Link>
+            <Navbar.Link as={Link} href="/register">Sign Up/Sign In</Navbar.Link>
           )}
         </Navbar.Collapse>
       </Navbar>

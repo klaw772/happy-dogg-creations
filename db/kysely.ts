@@ -11,7 +11,8 @@ interface ItemsTable {
   id: Generated<number>;
   name: string;
   description: string;
-  createdAt: ColumnType<Date, string | undefined, never>;
+  img_url: string;
+  created_at: ColumnType<Date, string | undefined, never>;
 }
 
 interface OrderItemsTable {
@@ -25,7 +26,7 @@ interface OrdersTable {
   uuid: string;
   fulfilled: boolean;
   user_id: number;
-  createdAt: ColumnType<Date, string | undefined, never>;
+  created_at: ColumnType<Date, string | undefined, never>;
 }
 
 export interface Database {

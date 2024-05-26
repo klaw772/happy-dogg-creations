@@ -1,70 +1,37 @@
 "use server"
-import { db, sql } from "@/db/kysely";
-import { getServerSession } from "next-auth";
-import { v4 as uuidv4 } from "uuid";
+import { db } from "@/db/kysely";
+import { redirect } from "next/navigation";
+import retrieveUser from "../lib/retrieveUser";
+import retrieveLatestUnfulfilledOrder from "../lib/retrieveLatestUnfulfilledOrder";
 
 
-export const addToCart = async (itemId: number, orderUuid: string, formData: FormData) => {
+export const addToCart = async (itemId: number, formData: FormData) => {
   "use server";
-  const session = await getServerSession();
-  console.log(session)
-  // try {
-  //   await db.schema
-  //     .createTable("orders")
-  //     .ifNotExists()
-  //     .addColumn("uuid", "varchar(255)", (column) => column.primaryKey())
-  //     .addColumn("fulfilled", "boolean", (column) => column.notNull())
-  //     .addColumn("user_id", "integer", (column) => {
-  //       return column.references("users.id").notNull();
-  //     })
-  //     .addColumn("createdAt", sql`timestamp with time zone`, (column) =>
-  //       column.defaultTo(sql`current_timestamp`)
-  //     )
-  //     .execute();
+  const user = await retrieveUser();
 
-  //   await db.schema
-  //     .createTable("order_items")
-  //     .ifNotExists()
-  //     .addColumn("id", "serial", (column) => column.primaryKey())
-  //     .addColumn("order_uuid", "varchar(255)", (column) => {
-  //       return column.references("orders.uuid").notNull();
-  //     })
-  //     .addColumn("item_id", "integer", (column) => {
-  //       return column.references("items.id").notNull();
-  //     })
-  //     .addColumn("quantity", "integer", (column) => column.notNull())
-  //     .execute();
+  if (!user) {
+    redirect("/login");
+  }
+  try {
+    let quantity: any = formData.get('itemQuantity');
+    if (!quantity) {
+      throw new Error('Quantity invalid');
+    }
 
-  //   let quantity: any = formData.get('itemQuantity');
-  //   if (!quantity) {
-  //     throw new Error('Quantity invalid');
-  //   }
+    let latestUnfulfilledOrder = await retrieveLatestUnfulfilledOrder(
+      user.id
+    );
 
-  //   const orderPresenceResult = await db
-  //   .selectFrom('orders')
-  //   .selectAll()
-  //   .where('uuid', '=', orderUuid)
-  //   .executeTakeFirst()
+    await db
+      .insertInto("order_items")
+      .values({
+        order_uuid: latestUnfulfilledOrder.uuid,
+        item_id: itemId,
+        quantity,
+      })
+      .executeTakeFirstOrThrow();
+  } catch (e: any) {
+    throw e;
 
-  //   if (!orderPresenceResult?.uuid) {
-  //     await db
-  //       .insertInto("orders")
-  //       .values({
-  //         uuid: orderUuid,
-  //         fulfilled: false,
-  //       })
-  //       .executeTakeFirstOrThrow();
-  //   }
-
-  //   await db
-  //     .insertInto("order_items")
-  //     .values({
-  //       order_uuid: orderUuid,
-  //       item_id: itemId,
-  //       quantity,
-  //     })
-  //     .executeTakeFirstOrThrow();
-  // } catch (e: any) {
-  //   throw e;
-  // }
+  }
 };
