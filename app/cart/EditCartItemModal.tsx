@@ -8,6 +8,7 @@ type EditCartItemModalProps = {
   item: CartItem;
   openModal: boolean;
   setOpenModal: Dispatch<SetStateAction<boolean>>;
+  updateItems: () => void;
 }
 export default function EditCartItemModal (props: EditCartItemModalProps) {
   const [newQuantity, setNewQuantity] = useState(props.item.quantity);
@@ -17,6 +18,7 @@ export default function EditCartItemModal (props: EditCartItemModalProps) {
   const handleSubmitClient = async (formData: FormData) => {
     const response = await addOrAdjustCart(props.item.id, 'EDIT', formData);
     if (response) {
+      props.updateItems();
       props.setOpenModal(false);
     } else {
       throw new Error('Error submitting data');

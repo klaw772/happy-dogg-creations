@@ -22,7 +22,7 @@ export default function CartContents(props: CartContentsProps) {
   }
   useEffect(() => {
     updateItems();
-  }, [itemList])
+  }, [])
   return (
     <>
       <p className='mb-5 text-3xl'>Cart</p>
@@ -41,7 +41,7 @@ export default function CartContents(props: CartContentsProps) {
             <div className="flex">
               <Button className='md:ml-4' onClick={() => setOpenModal(true)}>hallo?</Button>
             </div>
-            <EditCartItemModal item={item} openModal={openModal} setOpenModal={setOpenModal} />
+            <EditCartItemModal item={item} openModal={openModal} setOpenModal={setOpenModal} updateItems={updateItems} />
           </List.Item>
         ))}
       </List>
