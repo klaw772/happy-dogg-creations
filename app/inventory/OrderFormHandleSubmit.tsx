@@ -19,15 +19,38 @@ export const addToCart = async (itemId: number, formData: FormData) => {
 
     let latestUnfulfilledOrder = await retrieveLatestUnfulfilledOrder(user.id);
 
-    await db
-      .insertInto('order_items')
-      .values({
-        order_uuid: latestUnfulfilledOrder.uuid,
-        item_id: itemId,
-        quantity,
-      })
-      .returning('order_uuid')
-      .executeTakeFirstOrThrow();
+    let orderItemPresence = await db
+      .selectFrom('order_items')
+      .select('id')
+      .where('order_uuid', '=', latestUnfulfilledOrder.uuid)
+      .where('item_id', '=', itemId)
+      .executeTakeFirst();
+
+    if (!orderItemPresence) {
+      await db
+        .insertInto('order_items')
+        .values({
+          order_uuid: latestUnfulfilledOrder.uuid,
+          item_id: itemId,
+          quantity,
+        })
+        .returning('order_uuid')
+        .executeTakeFirstOrThrow();
+    } else {
+      let prevQuantity = await db
+        .selectFrom('order_items')
+        .select('order_items.quantity')
+        .where('id', '=', orderItemPresence.id)
+        .executeTakeFirst();
+
+      await db
+        .updateTable('order_items')
+        .set({ quantity: Number(prevQuantity?.quantity) + Number(quantity) })
+        .where('id', '=', orderItemPresence.id)
+        .returning('order_uuid')
+        .executeTakeFirstOrThrow();
+
+    }
 
     return true;
   } catch (e: any) {

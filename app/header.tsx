@@ -12,7 +12,6 @@ export function Header() {
 
   const path = usePathname();
   return (
-    <SessionProvider>
       <Navbar rounded fluid className='m-5 bg-transparent'>
         <Navbar.Brand as={Link} href='/'>
           <Image
@@ -62,6 +61,5 @@ export function Header() {
           )}
         </Navbar.Collapse>
       </Navbar>
-    </SessionProvider>
   );
 }

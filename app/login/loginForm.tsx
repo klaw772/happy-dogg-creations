@@ -21,7 +21,6 @@ export default function LoginFormPage() {
         router.push('/');
         router.refresh();
       }
-      console.log('Login Successful', response);
     } catch (e) {
       throw e;
     }
