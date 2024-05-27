@@ -16,7 +16,7 @@ https://happy-dogg-creations-postgres.vercel.app/
 Clone this repo:
 
 ```bash
-git clone git@github.com:klaw772/happy-dogg-creations-postgres.git
+git clone git@github.com:klaw772/happy-dogg-creations.git
 ```
 
 Copy the secure .env values into a .env file at the root of the cloned repository.
