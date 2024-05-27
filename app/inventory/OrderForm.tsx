@@ -10,7 +10,7 @@ export interface OrderFormProps {
 }
 
 export default function OrderForm(props: OrderFormProps) {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [submitDisabled, setSubmitDisabled] = useState(false);
     const router = useRouter();
 
@@ -35,7 +35,7 @@ export default function OrderForm(props: OrderFormProps) {
       </div>
       <div className='flex flex-wrap gap-2'>
         <Button
-          disabled={quantity <= 0}
+          disabled={quantity <= 1}
           color='red'
           onClick={() => setQuantity(quantity - 1)}
         >

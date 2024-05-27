@@ -3,6 +3,7 @@ import { db } from '@/db/kysely';
 import { redirect } from 'next/navigation';
 import retrieveUser from '../lib/retrieveUser';
 import retrieveLatestUnfulfilledOrder from '../lib/retrieveLatestUnfulfilledOrder';
+import { revalidatePath } from 'next/cache';
 
 export const addOrAdjustCart = async (itemId: number, operation: string, formData: FormData) => {
   'use server';
@@ -13,7 +14,7 @@ export const addOrAdjustCart = async (itemId: number, operation: string, formDat
   }
   try {
     let quantity: any = formData.get('itemQuantity');
-    if (!quantity || quantity <= 0) {
+    if (!quantity || quantity < 0) {
       throw new Error('Quantity invalid');
     }
 
@@ -62,6 +63,7 @@ export const addOrAdjustCart = async (itemId: number, operation: string, formDat
              .executeTakeFirstOrThrow();
             }
     }
+    revalidatePath('/cart');
 
     return true;
   } catch (e: any) {

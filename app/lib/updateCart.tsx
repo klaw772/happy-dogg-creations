@@ -17,6 +17,7 @@ export const updateCart = async (orderUuid: string) => {
       .innerJoin('items', 'order_items.item_id', 'items.id')
       .select(['order_items.quantity', 'items.name', 'items.id', 'items.img_url'])
       .where('order_uuid', '=', orderUuid)
+      .where('quantity', '>', 0)
       .execute();
 
     return items;
