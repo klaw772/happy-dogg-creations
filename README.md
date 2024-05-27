@@ -1,6 +1,7 @@
 # Happy Dogg Creations
 
-NextJS app built from scaffolding of 'Vercel Postgres Next.js Starter'. 
+NextJS app built from scaffolding of ['Vercel Postgres Next.js Starter'](https://github.com/vercel/examples/tree/main/storage/postgres-starter
+). 
 
 ## Deployed URL
 
