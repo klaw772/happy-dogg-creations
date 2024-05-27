@@ -6,7 +6,6 @@ import smalldog from '/public/another_small_dog.jpg';
 import bertha from '/public/bertha.jpg';
 import Link from 'next/link';
 
-
 export default function Home() {
   return (
     <>

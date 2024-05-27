@@ -12,8 +12,7 @@ export interface OrderFormProps {
 export default function OrderForm(props: OrderFormProps) {
   const [quantity, setQuantity] = useState(1);
   const [submitDisabled, setSubmitDisabled] = useState(false);
-    const router = useRouter();
-
+  const router = useRouter();
 
   const ref = createRef<HTMLFormElement>();
 
@@ -22,7 +21,7 @@ export default function OrderForm(props: OrderFormProps) {
     const response = await addOrAdjustCart(props.itemId, 'ADD', formData);
     if (response) {
       props.setOpenModal(false);
-      router.push('/cart')
+      router.push('/cart');
     } else {
       throw new Error('Error submitting data');
     }

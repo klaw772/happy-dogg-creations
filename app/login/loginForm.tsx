@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export default function LoginFormPage() {
   const router = useRouter();
-  const [loginError, setLoginError] = useState<string|null>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const handleLogin = async (data: FormData) => {
     const email = data.get('email');
     const password = data.get('password');
@@ -20,11 +20,11 @@ export default function LoginFormPage() {
       });
 
       if (response?.ok) {
-        setLoginError(null)
+        setLoginError(null);
         router.push('/');
         router.refresh();
       } else {
-        setLoginError('Incorrect username or password. Please try again.')
+        setLoginError('Incorrect username or password. Please try again.');
       }
     } catch (e) {
       throw e;
@@ -33,7 +33,7 @@ export default function LoginFormPage() {
 
   return (
     <form action={handleLogin} className='flex max-w-md flex-col gap-4'>
-      <p className="text-red-900">{loginError}</p>
+      <p className='text-red-900'>{loginError}</p>
       <div>
         <div className='mb-2 block'>
           <Label htmlFor='email' value='Your email' />

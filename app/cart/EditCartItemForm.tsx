@@ -1,15 +1,15 @@
-'use client'
-import { Button, Label, TextInput } from "flowbite-react";
-import { createRef, useState } from "react";
-import { CartItem } from "./page";
-import { addOrAdjustCart } from "../inventory/OrderFormHandleSubmit";
+'use client';
+import { Button, Label, TextInput } from 'flowbite-react';
+import { createRef, useState } from 'react';
+import { CartItem } from './page';
+import { addOrAdjustCart } from '../inventory/OrderFormHandleSubmit';
 import { FaCheck } from 'react-icons/fa';
 
 type EditCartItemFormProps = {
   item: CartItem;
   updateItems: () => void;
-}
-export default function EditCartItemForm (props: EditCartItemFormProps) {
+};
+export default function EditCartItemForm(props: EditCartItemFormProps) {
   const [newQuantity, setNewQuantity] = useState(props.item.quantity);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [doneSubmitting, setDoneSubmitting] = useState(false);
@@ -47,7 +47,7 @@ export default function EditCartItemForm (props: EditCartItemFormProps) {
         />
       </div>
       <Button color='gray' disabled={isSubmitting} type='submit'>
-        {doneSubmitting && (<FaCheck className='mr-2 h-5 w-5' />)}
+        {doneSubmitting && <FaCheck className='mr-2 h-5 w-5' />}
         Submit
       </Button>
     </form>

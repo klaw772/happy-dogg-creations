@@ -1,6 +1,6 @@
 'use server';
 
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
 export const handleRegister = async (data: FormData) => {
   const email = data.get('email');
@@ -21,6 +21,5 @@ export const handleRegister = async (data: FormData) => {
     console.error('Registration Failed:', error);
   } finally {
     redirect('/login');
-
   }
 };

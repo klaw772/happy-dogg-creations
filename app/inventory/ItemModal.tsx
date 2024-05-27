@@ -39,7 +39,7 @@ export function ItemModal(props: ItemModalProps) {
               alt={props.item.name}
               width={350}
               height={350}
-              className="rounded-md"
+              className='rounded-md'
             />
           </div>
 

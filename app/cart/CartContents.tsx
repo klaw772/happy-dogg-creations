@@ -12,16 +12,15 @@ export interface CartContentsProps {
   orderUuid: string;
 }
 export default function CartContents(props: CartContentsProps) {
-  const [itemList, setItemList] = useState(props.items)
-
+  const [itemList, setItemList] = useState(props.items);
 
   let updateItems = async () => {
     const res = await updateCart(props.orderUuid);
     setItemList(res);
-  }
+  };
   useEffect(() => {
     updateItems();
-  }, [])
+  }, []);
   return (
     <div>
       <p className='mb-5 text-center text-3xl'>Cart</p>
@@ -38,7 +37,7 @@ export default function CartContents(props: CartContentsProps) {
           <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
             {item.name}
           </h5>
-         <EditCartItemForm item={item} updateItems={updateItems}/>
+          <EditCartItemForm item={item} updateItems={updateItems} />
         </Card>
       ))}
       <Button
