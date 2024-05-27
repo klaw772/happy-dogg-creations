@@ -4,7 +4,7 @@ NextJS app built from scaffolding of ['Vercel Postgres Next.js Starter'](https:/
 
 ## Deployed URL
 
-https://happy-dogg-creations-postgres.vercel.app/
+https://happy-dogg-creations.vercel.app/
 
 ## Prerequisites
 
