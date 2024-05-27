@@ -24,35 +24,31 @@ export default function CartContents(props: CartContentsProps) {
     updateItems();
   }, [])
   return (
-    <>
-      <p className='mb-5 text-3xl'>Cart</p>
-      <p className='mb-3'>
+    <div>
+      <p className='mb-5 text-3xl text-center'>Cart</p>
+      <p className='mb-3 text-center'>
         It&apos;s all free! Because who doesn&apos;t like spoiling pets?
       </p>
-      <List unstyled className='w-3/4 divide-y divide-gray-200'>
         {itemList.map((item) => (
-          <List.Item
+          <Card
             key={item.name}
-            className='flex md:justify-between py-3 sm:py-4 flex-wrap items-center'
+            className='min-w-20 mb-3'
+            imgSrc={item.img_url}
+            horizontal
           >
-            <h5 className='flex items-center space-x-4 text-2xl font-bold text-gray-900 mb-2 md:mb-0'>
+            <h5 className='text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
               {item.name} x {item.quantity}
             </h5>
-            <div className="flex">
-              <Button className='md:ml-4' onClick={() => setOpenModal(true)}>hallo?</Button>
-            </div>
-            <EditCartItemModal item={item} openModal={openModal} setOpenModal={setOpenModal} updateItems={updateItems} />
-          </List.Item>
+          </Card>
         ))}
-      </List>
       <Button
-        className='bg-red-900 hover:border-red-900 hover:text-red-900 enabled:hover:bg-white'
+        className='bg-red-900 hover:border-red-900 hover:text-red-900 enabled:hover:bg-white mt-5 mx-auto'
         onClick={async () => {
           await handleCheckout(props.orderUuid);
         }}
       >
         Check Out
       </Button>
-    </>
+    </div>
   );
 }

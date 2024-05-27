@@ -8,6 +8,7 @@ export type CartItem = {
   id: number;
   quantity: number;
   name: string;
+  img_url: string;
 };
 export default async function Cart() {
   const user = await retrieveUser();
